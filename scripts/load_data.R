@@ -46,10 +46,10 @@ raw %>%
 report_exclusions(raw, acc_ex)
 
 # Sample characteristic:
-cat(paste0("Mean age: ", round(mean(quests$Edad), 2), ", SD age: ",
-       round(sd(quests$Edad), 2), "\nNumber of self-identified as female: ",
-       length(quests$Sexo[quests$Sexo == 2])))
-
+# cat(paste0("Mean age: ", round(mean(quests$Edad), 2), ", SD age: ",
+#        round(sd(quests$Edad), 2), "\nNumber of self-identified as female: ",
+#        length(quests$Sexo[quests$Sexo == 2])))
+# 
 # Experiments 2a and 2b ----
 raw2 <- read.csv("Input/data_e2.csv") %>%
   mutate(Phase = ifelse(Phase == "Reward", "Acquisition", Phase),
@@ -95,14 +95,14 @@ report_exclusions(raw2[which(raw2$Experiment == "B"),], acc_ex2)
 
 # TODO:
 # Sample characteristic for experiment 2A:
-cat(paste0("Mean age: ", round(mean(quests$Edad), 2), ", SD age: ",
-           round(sd(quests$Edad), 2), "\nNumber of self-identified as female: ",
-           length(quests$Sexo[quests$Sexo == 2])))
-
-# Sample characteristic for experiment 2B:
-cat(paste0("Mean age: ", round(mean(quests$Edad), 2), ", SD age: ",
-           round(sd(quests$Edad), 2), "\nNumber of self-identified as female: ",
-           length(quests$Sexo[quests$Sexo == 2])))
+# cat(paste0("Mean age: ", round(mean(quests$Edad), 2), ", SD age: ",
+#            round(sd(quests$Edad), 2), "\nNumber of self-identified as female: ",
+#            length(quests$Sexo[quests$Sexo == 2])))
+# 
+# # Sample characteristic for experiment 2B:
+# cat(paste0("Mean age: ", round(mean(quests$Edad), 2), ", SD age: ",
+#            round(sd(quests$Edad), 2), "\nNumber of self-identified as female: ",
+#            length(quests$Sexo[quests$Sexo == 2])))
 
 # Merged dataset ----
 raw_all <- bind_rows(

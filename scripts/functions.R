@@ -1,5 +1,3 @@
-source("scripts/load_data.R") # Automatically load data
-
 if (!require(pacman)) {
   install.packages(pacman)
   library(pacman)
@@ -291,3 +289,5 @@ report_exclusions <- function(d, acc) {
              "\nOutliers RTs: ", round(outliers, 2), "%"))
 }
 
+# Load data ----
+source("scripts/load_data.R") # Automatically load data

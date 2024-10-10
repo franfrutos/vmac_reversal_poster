@@ -229,26 +229,30 @@ d_aov %>%
     Phase = as.factor(Phase),
     #Experiment = factor(Experiment, levels = c("Experiment 1", "Experiment 2A","Experiment 2B")),
     RT = RT
-  )) -> merge_data
+  )) %>%
+  spread(Singleton, RT) %>%
+  mutate(VMAC = High-Low)-> merge_data
 
 merge_data$Experiment <- factor(merge_data$Experiment, levels = c("Experiment 1", "Experiment 2A","Experiment 2B"))
-merge_data$Singleton <- factor(merge_data$Singleton, levels = c("High", "Low"))
+#merge_data$Singleton <- factor(merge_data$Singleton, levels = c("High", "Low"))
 
 
-afex::aov_ez(data = merge_data, id = "ID", dv = "RT",
-               within = c("Phase", "Singleton"), between = "Experiment", anova_table = list(es = "pes"))%>%
-  afex_plot(., x="Phase", trace = "Singleton", panel = "Experiment", error = "CMO", mapping = c("color", "shape"),
+afex::aov_ez(data = merge_data, id = "ID", dv = "VMAC",
+               within = c("Phase"), between = "Experiment", anova_table = list(es = "pes")) %>%
+  afex_plot(., x="Experiment", trace = "Phase", error = "CMO", mapping = c("color", "shape"),
             dodge = .1,
             data_alpha = 0.25,
             data_arg = list(
               position = 
                 ggplot2::position_jitterdodge(
-                  jitter.width = .2, 
+                  jitter.width = .05, 
                   jitter.height = 0, 
                   dodge.width = 0.1  ## needs to be same as dodge
                 ))) +
   theme_Publication() +
-  labs(y = "Reponse times (ms)") +
+  scale_y_continuous(breaks = seq(-200, 200, 50)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(y = "VMAC effect (ms)") +
   scale_color_brewer(palette = "Set1")
 
 ggsave(
