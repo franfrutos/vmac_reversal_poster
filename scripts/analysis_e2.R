@@ -77,6 +77,13 @@ f_rb <-
     data = d2[d2$Phase == "Acquisition" & d2$Experiment == "B" & d2$Block_num > 6, ]
   )
 
+f_rb <-
+  lmer(
+    log_RT ~ Singleton * scale(log(Block_num)) * (Singleton+scale(log(Block_num)) | ID),
+    control = lmerControl(optimizer = 'bobyqa', optCtrl=list(maxfun=1e5)),
+    data = d2[d2$Phase == "Acquisition" & d2$Experiment == "B", ]
+  )
+
 summary(f_rb)
 
 contrasts(d2$Singleton) <- HcRepRev
